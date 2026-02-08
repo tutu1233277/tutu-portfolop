@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自我介绍设计 Playground</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #FDF6E3 0%, #F5E6D3 50%, #E8D5C4 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'ZCOOL XiaoWei', serif;
+            text-align: center;
+            font-size: 2.5rem;
+            color: #5D4E37;
+            margin-bottom: 50px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .option {
+            text-align: center;
+        }
+
+        .option-title {
+            font-size: 1.2rem;
+            color: #5D4E37;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .intro-text {
+            max-width: 400px;
+            margin: 0 auto;
+            color: #8B7355;
+            font-size: 1rem;
+            line-height: 1.9;
+            text-align: center;
+            padding: 25px 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 选项1：原始版本 */
+        .option-1 {
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* 选项2：渐变边框 */
+        .option-2 {
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 20px;
+            padding: 24px;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+        .option-2::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            padding: 2px;
+            background: linear-gradient(135deg, #7B9EB0, #C38D9E);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        /* 选项3：双层边框 */
+        .option-3 {
+            background: rgba(255, 255, 255, 0.25);
+            border: 2px solid rgba(123, 158, 176, 0.3);
+            border-radius: 20px;
+            outline: 2px dashed rgba(195, 141, 158, 0.4);
+            outline-offset: 4px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* 选项4：虚线边框 */
+        .option-4 {
+            background: rgba(255, 255, 255, 0.25);
+            border: 2px dashed #7B9EB0;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* 选项5：大圆角 */
+        .option-5 {
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 35px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* 选项6：不对称圆角 */
+        .option-6 {
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 10px 35px 10px 35px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* 选项7：渐变背景 */
+        .option-7 {
+            background: linear-gradient(135deg, rgba(123, 158, 176, 0.15), rgba(195, 141, 158, 0.15));
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* 选项8：阴影边框 */
+        .option-8 {
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            box-shadow:
+                0 4px 20px rgba(123, 158, 176, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        /* 选项9：胶带风格 */
+        .option-9 {
+            background: rgba(255, 255, 255, 0.25);
+            border: none;
+            border-radius: 0;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+        .option-9::before,
+        .option-9::after {
+            content: '';
+            position: absolute;
+            height: 30px;
+            width: 100px;
+            background: rgba(123, 158, 176, 0.3);
+            top: -15px;
+        }
+        .option-9::before {
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+        }
+        .option-9::after {
+            display: none;
+        }
+
+        /* 选项10：简约无边框 */
+        .option-10 {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+        }
+
+        .instructions {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .instructions h2 {
+            color: #5D4E37;
+            margin-bottom: 15px;
+        }
+        .instructions p {
+            color: #8B7355;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ 自我介绍设计 Playground</h1>
+
+        <div class="grid">
+            <div class="option">
+                <div class="option-title">1. 原始版本</div>
+                <div class="intro-text option-1">
+                    一个懂设计、懂技术、懂营销、懂运营、会说故事的 AI 产品经理<br>
+                    兴趣爱好广泛：📷 摄影 ✈️ 旅游 🤿 潜水 🎿 滑雪 🧗 攀岩 🎨 拼豆<br>
+                    也爱看偶像剧 📺、打游戏 🎮
+                </div>
+            </div>
+
+            <div class="option">
+                <div class="option-title">2. 渐变边框</div>
+                <div class="intro-text option-2">
+                    一个懂设计、懂技术、懂营销、懂运营、会说故事的 AI 产品经理<br>
+                    兴趣爱好广泛：📷 摄影 ✈️ 旅游 🤿 潜水 🎿 滑雪 🧗 攀岩 🎨 拼豆<br>
+                    也爱看偶像剧 📺、打游戏 🎮
+                </div>
+            </div>
+
+            <div class="option">
+                <div class="option-title">3. 双层边框</div>
+                <div class="intro-text option-3">
+                    一个懂设计、懂技术、懂营销、懂运营、会说故事的 AI 产品经理<br>
+                    兴趣爱好广泛：📷 摄影 ✈️ 旅游 🤿 潜水 🎿 滑雪 🧗 攀岩 🎨 拼豆<br>
+                    也爱看偶像剧 📺、打游戏 🎮
+                </div>
+            </div>
+
+            <div class="option">
+                <div class="option-title">4. 虚线边框</div>
+                <div class="intro-text option-4">
+                    一个懂设计、懂技术、懂营销、懂运营、会说故事的 AI 产品经理<br>
+                    兴趣爱好广泛：📷 摄影 ✈️ 旅游 🤿 潜水 🎿 滑雪 🧗 攀岩 🎨 拼豆<br>
+                    也爱看偶像剧 📺、打游戏 🎮
+                </div>
+            </div>
+
+            <div class="option">
+                <div class="option-title">5. 大圆角</div>
+                <div class="intro-text option-5">
+                    一个懂设计、懂技术、懂营销、懂运营、会说故事的 AI 产品经理<br>
+                    兴趣爱好广泛：📷 摄影 ✈️ 旅游 🤿 潜水 🎿 滑雪 🧗 攀岩 🎨 拼豆<br>
+                    也爱看偶像剧 📺、打游戏 🎮
+                </div>
+            </div>
+
+            <div class="option">
+                <div class="option-title">6. 不对称圆角</div>
+                <div class="intro-text option-6">
+                    一个懂设计、懂技术、懂营销、懂运营、会说故事的 AI 产品经理<br>
+                    兴趣爱好广泛：📷 摄影 ✈️ 旅游 🤿 潜水 🎿 滑雪 🧗 攀岩 🎨 拼豆<br>
+                    也爱看偶像剧 📺、打游戏 🎮
+                </div>
+            </div>
+
+            <div class="option">
+                <div class="option-title">7. 渐变背景</div>
+                <div class="intro-text option-7">
+                    一个懂设计、懂技术、懂营销、懂运营、会说故事的 AI 产品经理<br>
+                    兴趣爱好广泛：📷 摄影 ✈️ 旅游 🤿 潜水 🎿 滑雪 🧗 攀岩 🎨 拼豆<br>
+                    也爱看偶像剧 📺、打游戏 🎮
+                </div>
+            </div>
+
+            <div class="option">
+                <div class="option-title">8. 阴影边框</div>
+                <div class="intro-text option-8">
+                    一个懂设计、懂技术、懂营销、懂运营、会说故事的 AI 产品经理<br>
+                    兴趣爱好广泛：📷 摄影 ✈️ 旅游 🤿 潜水 🎿 滑雪 🧗 攀岩 🎨 拼豆<br>
+                    也爱看偶像剧 📺、打游戏 🎮
+                </div>
+            </div>
+
+            <div class="option">
+                <div class="option-title">9. 胶带风格</div>
+                <div class="intro-text option-9">
+                    一个懂设计、懂技术、懂营销、懂运营、会说故事的 AI 产品经理<br>
+                    兴趣爱好广泛：📷 摄影 ✈️ 旅游 🤿 潜水 🎿 滑雪 🧗 攀岩 🎨 拼豆<br>
+                    也爱看偶像剧 📺、打游戏 🎮
+                </div>
+            </div>
+
+            <div class="option">
+                <div class="option-title">10. 简约无边框</div>
+                <div class="intro-text option-10">
+                    一个懂设计、懂技术、懂营销、懂运营、会说故事的 AI 产品经理<br>
+                    兴趣爱好广泛：📷 摄影 ✈️ 旅游 🤿 潜水 🎿 滑雪 🧗 攀岩 🎨 拼豆<br>
+                    也爱看偶像剧 📺、打游戏 🎮
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h2>🎨 如何选择</h2>
+            <p>
+                告诉我你喜欢哪个选项的编号（比如"我喜欢选项2"），<br>
+                我会把它应用到你的网站上！<br><br>
+                如果你想要混合设计元素，也可以告诉我，比如"选项3的边框加上选项7的背景"
+            </p>
+        </div>
+    </div>
+</body>
+</html>
