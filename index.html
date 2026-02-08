@@ -172,42 +172,19 @@
             font-size: 1rem;
             line-height: 1.9;
             text-align: center;
-            padding: 30px 35px;
-            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+            padding: 40px 45px 30px 45px;
+            background: url('sticky-note-bg.jpg') center/cover no-repeat;
             border: none;
-            border-radius: 2px;
-            box-shadow:
-                0 2px 4px rgba(0, 0, 0, 0.1),
-                0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             position: relative;
             transform: rotate(-1deg);
             animation: fadeInUp 1.4s ease-out;
-        }
-
-        .intro-text::before {
-            content: '';
-            position: absolute;
-            width: 120px;
-            height: 35px;
-            background: rgba(255, 255, 255, 0.4);
-            top: -18px;
-            left: 50%;
-            transform: translateX(-50%) rotate(2deg);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        /* 右下角卷边效果 */
-        .intro-text::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 0 0 25px 25px;
-            border-color: transparent transparent #ffe082 transparent;
-            filter: drop-shadow(-2px -2px 3px rgba(0, 0, 0, 0.15));
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         /* 技能图谱 - 小雏菊 */
