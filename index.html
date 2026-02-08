@@ -6,7 +6,7 @@
     <title>大耳朵图图 | 凃新焱 - AI 产品经理 & 摄影师</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=ZCOOL+XiaoWei&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -176,6 +176,7 @@
             background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
             border: none;
             border-radius: 2px;
+            font-family: 'Ma Shan Zheng', cursive;
             box-shadow:
                 0 2px 4px rgba(0, 0, 0, 0.1),
                 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -194,6 +195,20 @@
             left: 50%;
             transform: translateX(-50%) rotate(2deg);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 右下角卷边效果 */
+        .intro-text::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 0 25px 25px;
+            border-color: transparent transparent #ffe082 transparent;
+            filter: drop-shadow(-2px -2px 3px rgba(0, 0, 0, 0.15));
         }
 
         .social-buttons {
