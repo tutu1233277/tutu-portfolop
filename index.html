@@ -606,17 +606,22 @@
         .film-entrance {
             max-width: 700px;
             margin: 0 auto;
-            background: #1a1a1a;
-            border: 8px solid #2a2a2a;
-            border-radius: 10px;
-            padding: 60px 40px;
+            background: linear-gradient(135deg, #f4e4bc 0%, #e8d4a8 50%, #f4e4bc 100%);
+            border: 12px solid #1a1a1a;
+            border-radius: 5px;
+            padding: 50px 40px;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             position: relative;
             overflow: hidden;
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 0 60px rgba(139, 115, 85, 0.2);
+            text-decoration: none;
+            display: block;
         }
 
-        /* 胶片边框效果 */
+        /* 胶片齿孔效果 */
         .film-entrance::before {
             content: '';
             position: absolute;
@@ -628,9 +633,9 @@
                 repeating-linear-gradient(
                     90deg,
                     transparent,
-                    transparent 20px,
-                    rgba(0, 0, 0, 0.3) 20px,
-                    rgba(0, 0, 0, 0.3) 22px
+                    transparent 15px,
+                    rgba(0, 0, 0, 0.15) 15px,
+                    rgba(0, 0, 0, 0.15) 18px
                 );
             pointer-events: none;
         }
@@ -638,50 +643,46 @@
         .film-entrance::after {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            animation: flash 3s ease-in-out infinite;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
             pointer-events: none;
         }
 
-        @keyframes flash {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 0.6; }
-        }
-
         .film-entrance:hover {
-            transform: scale(1.02);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            border-color: #3a3a3a;
+            transform: scale(1.03) rotate(0.5deg);
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.4),
+                inset 0 0 80px rgba(139, 115, 85, 0.3);
         }
 
         .film-icon {
             font-size: 5rem;
             margin-bottom: 25px;
             display: block;
-            filter: grayscale(100%);
+            filter: sepia(0.8);
             transition: all 0.3s ease;
         }
 
         .film-entrance:hover .film-icon {
-            filter: grayscale(0%);
+            filter: sepia(0);
+            transform: scale(1.1);
         }
 
         .film-title {
             font-family: 'ZCOOL XiaoWei', serif;
             font-size: 2.5rem;
             margin-bottom: 20px;
-            color: #e0e0e0;
+            color: #3d2e1f;
             position: relative;
             z-index: 1;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
         }
 
         .film-subtitle {
-            color: #999;
+            color: #5d4e37;
             font-size: 1.1rem;
             line-height: 1.8;
             position: relative;
@@ -691,179 +692,14 @@
         .film-hint {
             margin-top: 30px;
             padding: 10px 25px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.1);
+            border: 2px dashed #5d4e37;
             border-radius: 25px;
             display: inline-block;
             font-size: 0.9rem;
-            color: #ccc;
+            color: #3d2e1f;
             position: relative;
             z-index: 1;
-        }
-
-        /* 五个板块（默认隐藏） */
-        .photo-series-grid {
-            display: none;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .photo-series-grid.active {
-            display: grid;
-        }
-
-        .photo-series-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px 20px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .photo-series-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(123, 158, 176, 0.1), rgba(195, 141, 158, 0.1));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .photo-series-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 20px 50px rgba(123, 158, 176, 0.3);
-        }
-
-        .photo-series-card:hover::before {
-            opacity: 1;
-        }
-
-        .series-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-        }
-
-        .series-name {
-            font-family: 'ZCOOL XiaoWei', serif;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: var(--text-primary);
-        }
-
-        .series-subtitle {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            opacity: 0.8;
-        }
-
-        /* Photo Gallery Modal */
-        .photo-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 10000;
-            overflow-y: auto;
-            padding: 40px 20px;
-        }
-
-        .photo-modal.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .modal-close {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 10001;
-        }
-
-        .modal-close:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: rotate(90deg);
-        }
-
-        .modal-title {
-            font-family: 'ZCOOL XiaoWei', serif;
-            font-size: 2.5rem;
-            color: white;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .photo-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding-bottom: 40px;
-        }
-
-        .photo-item {
-            border-radius: 16px;
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.1);
-            aspect-ratio: 3/4;
-        }
-
-        .photo-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .photo-item:hover img {
-            transform: scale(1.05);
-        }
-
-        .photo-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            color: white;
-            font-size: 1rem;
-            text-align: center;
-            padding: 20px;
         }
 
         /* Douyin Section */
@@ -1303,8 +1139,8 @@
         <div class="container">
             <h2 class="section-title">光影暗房</h2>
 
-            <!-- 胶片入口 -->
-            <div class="film-entrance" id="filmEntrance">
+            <!-- 胶片入口 - 链接到摄影页面 -->
+            <a href="photography.html" class="film-entrance">
                 <span class="film-icon">🎬</span>
                 <h3 class="film-title">暗房之门</h3>
                 <p class="film-subtitle">
@@ -1313,49 +1149,9 @@
                     每一张照片，都是写给世界的情书
                 </p>
                 <div class="film-hint">✨ 点击进入暗房</div>
-            </div>
-
-            <!-- 五个板块（默认隐藏） -->
-            <div class="photo-series-grid" id="photoSeriesGrid">
-                <div class="photo-series-card" data-series="wind">
-                    <div class="series-icon">🍃</div>
-                    <div class="series-name">有风的地方</div>
-                    <div class="series-subtitle">Where the Wind Blows</div>
-                </div>
-                <div class="photo-series-card" data-series="egypt">
-                    <div class="series-icon">🏺</div>
-                    <div class="series-name">古埃遗梦</div>
-                    <div class="series-subtitle">Egyptian Dreams</div>
-                </div>
-                <div class="photo-series-card" data-series="borobudur">
-                    <div class="series-icon">🛕</div>
-                    <div class="series-name">婆罗摩</div>
-                    <div class="series-subtitle">Borobudur</div>
-                </div>
-                <div class="photo-series-card" data-series="bali">
-                    <div class="series-icon">🌺</div>
-                    <div class="series-name">Bali</div>
-                    <div class="series-subtitle">巴厘岛</div>
-                </div>
-                <div class="photo-series-card" data-series="tokyo">
-                    <div class="series-icon">🗼</div>
-                    <div class="series-name">Tokyo</div>
-                    <div class="series-subtitle">东京</div>
-                </div>
-            </div>
+            </a>
         </div>
     </section>
-
-    <!-- Photo Gallery Modal -->
-    <div class="photo-modal" id="photoModal">
-        <div class="modal-close" id="modalClose">✕</div>
-        <div class="modal-content">
-            <h2 class="modal-title" id="modalTitle">摄影作品</h2>
-            <div class="photo-gallery" id="photoGallery">
-                <!-- 照片将通过 JavaScript 动态加载 -->
-            </div>
-        </div>
-    </div>
 
     <!-- Douyin Section -->
     <section class="section" id="douyin">
@@ -1552,7 +1348,7 @@
         }
 
         // 为所有可点击元素添加果冻效果
-        document.querySelectorAll('.social-btn, .project-card, .photo-series-card, .film-entrance, .douyin-card, .tag').forEach(element => {
+        document.querySelectorAll('.social-btn, .project-card, .film-entrance, .douyin-card, .tag').forEach(element => {
             element.addEventListener('click', () => {
                 addJellyEffect(element);
             });
@@ -1595,106 +1391,6 @@
                     alert('💬 微信号：zzn666txy\n\n请搜索添加好友');
                 }
             });
-        });
-
-        // ========== 胶片入口点击 ==========
-        const filmEntrance = document.getElementById('filmEntrance');
-        const photoSeriesGrid = document.getElementById('photoSeriesGrid');
-
-        filmEntrance.addEventListener('click', () => {
-            addJellyEffect(filmEntrance);
-
-            // 隐藏胶片入口
-            filmEntrance.style.display = 'none';
-
-            // 显示五个板块
-            photoSeriesGrid.classList.add('active');
-        });
-
-        // ========== 摄影板块点击 ==========
-        const photoSeriesData = {
-            wind: {
-                title: '有风的地方 Where the Wind Blows',
-                photos: [] // 添加你的照片路径，例如: ['photos/wind-1.jpg', 'photos/wind-2.jpg']
-            },
-            egypt: {
-                title: '古埃遗梦 Egyptian Dreams',
-                photos: []
-            },
-            borobudur: {
-                title: '婆罗摩 Borobudur',
-                photos: []
-            },
-            bali: {
-                title: 'Bali 巴厘岛',
-                photos: []
-            },
-            tokyo: {
-                title: 'Tokyo 东京',
-                photos: []
-            }
-        };
-
-        const photoModal = document.getElementById('photoModal');
-        const modalClose = document.getElementById('modalClose');
-        const modalTitle = document.getElementById('modalTitle');
-        const photoGallery = document.getElementById('photoGallery');
-
-        // 打开模态框
-        document.querySelectorAll('.photo-series-card').forEach(card => {
-            card.addEventListener('click', () => {
-                addJellyEffect(card);
-                const series = card.getAttribute('data-series');
-                const data = photoSeriesData[series];
-
-                modalTitle.textContent = data.title;
-
-                // 清空并加载照片
-                photoGallery.innerHTML = '';
-
-                if (data.photos.length === 0) {
-                    // 如果没有照片，显示占位符
-                    for (let i = 0; i < 6; i++) {
-                        const placeholder = document.createElement('div');
-                        placeholder.className = 'photo-item';
-                        placeholder.innerHTML = `<div class="photo-placeholder">📷<br>照片即将上线<br>Photo ${i + 1}</div>`;
-                        photoGallery.appendChild(placeholder);
-                    }
-                } else {
-                    // 加载实际照片
-                    data.photos.forEach(photoPath => {
-                        const photoItem = document.createElement('div');
-                        photoItem.className = 'photo-item';
-                        photoItem.innerHTML = `<img src="${photoPath}" alt="摄影作品">`;
-                        photoGallery.appendChild(photoItem);
-                    });
-                }
-
-                photoModal.classList.add('active');
-                document.body.style.overflow = 'hidden'; // 防止背景滚动
-            });
-        });
-
-        // 关闭模态框
-        modalClose.addEventListener('click', () => {
-            photoModal.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-
-        // 点击背景关闭
-        photoModal.addEventListener('click', (e) => {
-            if (e.target === photoModal) {
-                photoModal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-
-        // ESC 键关闭
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && photoModal.classList.contains('active')) {
-                photoModal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
         });
 
         // ========== 抖音卡片点击 ==========
