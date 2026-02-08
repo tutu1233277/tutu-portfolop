@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大耳朵图图 | 凃新焱 - AI 产品经理 & 摄影师</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #7B9EB0;
+            --secondary-color: #E8A87C;
+            --accent-color: #C38D9E;
+            --bg-gradient: linear-gradient(135deg, #FDF6E3 0%, #F5E6D3 50%, #E8D5C4 100%);
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --text-primary: #5D4E37;
+            --text-secondary: #8B7355;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 纹理叠加 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139, 115, 85, 0.02) 2px,
+                    rgba(139, 115, 85, 0.02) 4px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139, 115, 85, 0.02) 2px,
+                    rgba(139, 115, 85, 0.02) 4px
+                );
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        #brush-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 40px 20px;
+        }
+
+        .hero-content {
+            text-align: center;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .avatar-wrapper {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: white;
+            box-shadow:
+                0 20px 60px rgba(123, 158, 176, 0.3),
+                0 0 0 8px rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .avatar::before {
+            content: '🐰';
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hero h1 {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+            text-shadow: 2px 2px 4px rgba(93, 78, 55, 0.1);
+        }
+
+        .nickname {
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .tags {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 35px;
+        }
+
+        .tag {
+            padding: 10px 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .tag:hover {
+            transform: translateY(-3px) scale(1.05);
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 25px rgba(123, 158, 176, 0.2);
+        }
+
+        .intro-text {
+            max-width: 600px;
+            margin: 30px auto 35px;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.9;
+            text-align: center;
+            padding: 25px 30px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1.4s ease-out;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-5px) scale(1.15);
+            box-shadow: 0 15px 35px rgba(123, 158, 176, 0.3);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--text-primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        /* Timeline Section */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            margin-bottom: 60px;
+            position: relative;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 0;
+            margin-right: 55%;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 55%;
+            margin-right: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px var(--primary-color);
+            z-index: 2;
+        }
+
+        .timeline-content {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(123, 158, 176, 0.25);
+        }
+
+        /* 时间轴插画装饰 */
+        .timeline-illustration {
+            position: absolute;
+            width: 280px;
+            opacity: 0.9;
+            pointer-events: none;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08));
+            transition: transform 0.3s ease;
+            z-index: 0;
+        }
+
+        .timeline-illustration img {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+        }
+
+        /* 插画在卡片内的位置 */
+        .timeline-illustration.left {
+            left: -300px;
+            top: 20px;
+        }
+
+        .timeline-illustration.right {
+            right: -300px;
+            top: 20px;
+        }
+
+        /* 第一、二张插画变大 */
+        .timeline-item:nth-child(1) .timeline-illustration,
+        .timeline-item:nth-child(2) .timeline-illustration {
+            width: 350px;
+        }
+
+        .timeline-item:nth-child(1) .timeline-illustration.right {
+            right: -370px;
+        }
+
+        .timeline-item:nth-child(2) .timeline-illustration.left {
+            left: -370px;
+        }
+
+        /* 第三张插画变小 */
+        .timeline-item:nth-child(3) .timeline-illustration {
+            width: 220px;
+        }
+
+        .timeline-item:nth-child(3) .timeline-illustration.right {
+            right: -240px;
+        }
+
+        .timeline-date {
+            display: inline-block;
+            padding: 5px 15px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .timeline-role {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Project Cards */
+        .project-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .project-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(123, 158, 176, 0.1), rgba(195, 141, 158, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(123, 158, 176, 0.3);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card.active {
+            transform: scale(1.02);
+        }
+
+        .project-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-icon img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .project-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .project-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(123, 158, 176, 0.2);
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .project-summary {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .project-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.3s ease;
+            margin-top: 0;
+        }
+
+        .project-card.active .project-details {
+            max-height: 800px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .detail-section {
+            margin-bottom: 15px;
+        }
+
+        .detail-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .detail-content {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .tech-item {
+            padding: 5px 12px;
+            background: rgba(232, 168, 124, 0.2);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+        }
+
+        /* Photography Section */
+        .photography-section {
+            text-align: center;
+        }
+
+        .darkroom-entrance {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 50px 40px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .darkroom-entrance:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 30px 70px rgba(123, 158, 176, 0.35);
+        }
+
+        .darkroom-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .darkroom-title {
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .darkroom-desc {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .darkroom-hint {
+            margin-top: 25px;
+            padding: 10px 20px;
+            background: rgba(123, 158, 176, 0.15);
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+        }
+
+        /* Douyin Section */
+        .douyin-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .douyin-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            border-radius: 18px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            cursor: pointer;
+        }
+
+        .douyin-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 20px 50px rgba(123, 158, 176, 0.3);
+        }
+
+        .douyin-thumbnail {
+            width: 100%;
+            aspect-ratio: 9/16;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .douyin-thumbnail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%);
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .douyin-card:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .play-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .douyin-info {
+            padding: 15px;
+        }
+
+        .douyin-title {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .douyin-stats {
+            display: flex;
+            justify-content: space-around;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Click feedback animation */
+        .jelly-click {
+            animation: jelly 0.5s ease;
+        }
+
+        @keyframes jelly {
+            0% {
+                transform: scale(1);
+            }
+            30% {
+                transform: scale(0.9, 1.1);
+            }
+            40% {
+                transform: scale(1.1, 0.9);
+            }
+            50% {
+                transform: scale(0.95, 1.05);
+            }
+            65% {
+                transform: scale(1.05, 0.95);
+            }
+            75% {
+                transform: scale(0.98, 1.02);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 50px;
+                margin-right: 0;
+            }
+
+            /* 移动端隐藏插画 */
+            .timeline-illustration {
+                display: none;
+            }
+
+            .douyin-grid {
+                grid-template-columns: 1fr;
+                max-width: 350px;
+            }
+
+            .social-buttons {
+                gap: 15px;
+            }
+
+            .darkroom-entrance {
+                padding: 40px 25px;
+            }
+
+            .project-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .intro-text {
+                font-size: 0.9rem;
+                padding: 20px;
+                margin: 25px auto 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .nickname {
+                font-size: 1.1rem;
+            }
+
+            .avatar-wrapper {
+                width: 140px;
+                height: 140px;
+            }
+
+            .avatar {
+                font-size: 60px;
+            }
+
+            .tags {
+                gap: 10px;
+            }
+
+            .tag {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+
+            .intro-text {
+                font-size: 0.85rem;
+                padding: 18px 15px;
+                line-height: 1.8;
+            }
+
+            .section {
+                padding: 60px 15px;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin-bottom: 5px;
+        }
+
+        .heart {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="brush-canvas"></canvas>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="avatar-wrapper">
+                <div class="avatar"></div>
+            </div>
+            <h1>凃新焱</h1>
+            <p class="nickname">大耳朵图图 🐰</p>
+            <div class="tags">
+                <span class="tag">🤖 AI 产品经理</span>
+                <span class="tag">📷 富士人像摄影师</span>
+                <span class="tag">🎨 AIGC 创作者</span>
+                <span class="tag">05后 · 27届毕业</span>
+            </div>
+            <p class="intro-text">
+                一个懂设计、懂技术、懂营销、懂运营、会说故事的 AI 产品经理<br>
+                兴趣爱好广泛：📷 摄影 ✈️ 旅游 🤿 潜水 🎿 滑雪 🧗 攀岩 🎨 拼豆<br>
+                也爱看偶像剧 📺、打游戏 🎮
+            </p>
+            <div class="social-buttons">
+                <a href="https://x.com/tutu971844?s=21" class="social-btn" title="Twitter" target="_blank">𝕏</a>
+                <a href="#" class="social-btn" title="微信">💬</a>
+                <a href="https://xhslink.com/m/9SrXJeJv6WS" class="social-btn" title="小红书" target="_blank">📕</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Timeline Section -->
+    <section class="section" id="career">
+        <div class="container">
+            <h2 class="section-title">实习经历</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-illustration right">
+                            <img src="illustration-1.jpg" alt="宫崎骏风格插画">
+                        </div>
+                        <span class="timeline-date">2024 - 至今</span>
+                        <h3 class="timeline-title">特赞 Tezign</h3>
+                        <p class="timeline-role">AI 产品经理实习生</p>
+                        <p class="timeline-description">
+                            负责企业级 AIGC 产品的规划与落地，构建多智能体协作系统。
+                        </p>
+                        <div class="project-cards">
+                            <div class="project-card" data-project="atypica">
+                                <div class="project-icon"><img src="atypica-logo.png" alt="atypica logo"></div>
+                                <div class="project-name">atypica</div>
+                                <span class="project-tag">多智能体系统</span>
+                                <p class="project-summary">商业研究 Agent 协作平台</p>
+                                <div class="project-details">
+                                    <div class="detail-section">
+                                        <div class="detail-title">🎯 产品定位</div>
+                                        <div class="detail-content">
+                                            打造首个面向商业研究的 Multi-Agent System，通过智能体分工协作，将传统的市场调研效率提升 300%。产品定位为"企业级商业洞察引擎"，服务于需要深度行业分析的战略决策场景。
+                                        </div>
+                                    </div>
+                                    <div class="detail-section">
+                                        <div class="detail-title">🤖 Agent 架构设计</div>
+                                        <div class="detail-content">
+                                            设计了 4 层 Agent 协作体系：① 研究策划 Agent（定义研究框架）→ ② 信息采集 Agent（多源数据抓取与清洗）→ ③ 分析推理 Agent（模式识别与洞察提取）→ ④ 报告生成 Agent（结构化输出）。通过 Chain-of-Thought 提示工程优化，确保每个 Agent 的输出质量可验证、可追溯。
+                                        </div>
+                                    </div>
+                                    <div class="detail-section">
+                                        <div class="detail-title">📊 核心成果</div>
+                                        <div class="detail-content">
+                                            • 上线 3 个月服务 15+ 家企业客户<br>
+                                            • 单份商业报告平均产出时间从 2 周缩短至 2 小时<br>
+                                            • Agent 准确率达到 87%，超行业平均水平 22%
+                                        </div>
+                                    </div>
+                                    <div class="tech-stack">
+                                        <span class="tech-item">LangChain</span>
+                                        <span class="tech-item">GPT-4o</span>
+                                        <span class="tech-item">Vector DB</span>
+                                        <span class="tech-item">RAG</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-card" data-project="pitchlab">
+                                <div class="project-icon">🎤</div>
+                                <div class="project-name">PitchLab</div>
+                                <span class="project-tag">AI 训练产品</span>
+                                <p class="project-summary">表达能力提升与演讲训练平台</p>
+                                <div class="project-details">
+                                    <div class="detail-section">
+                                        <div class="detail-title">💡 产品洞察</div>
+                                        <div class="detail-content">
+                                            发现 65% 的职场人因"表达焦虑"错失机会。传统演讲培训存在三大痛点：① 昂贵（动辄数万）② 缺乏即时反馈（需等待教练点评）③ 难以量化进步。PitchLab 旨在通过 AI 让每个人都能获得"私人演讲教练"。
+                                        </div>
+                                    </div>
+                                    <div class="detail-section">
+                                        <div class="detail-title">🎬 核心功能矩阵</div>
+                                        <div class="detail-content">
+                                            <strong>实时反馈系统</strong>：通过语音识别 + 视觉分析，实时检测语速（建议 180-200 字/分钟）、停顿次数、肢体语言丰富度。<br><br>
+                                            <strong>智能改写引擎</strong>：用户输入粗稿，AI 基于金字塔原理优化结构，生成 3 个版本（正式/活泼/精简）供选择。<br><br>
+                                            <strong>情景模拟训练</strong>：内置 50+ 场景（投资路演/汇报述职/客户提案），AI 扮演听众并提出刁钻问题，锻炼临场反应。
+                                        </div>
+                                    </div>
+                                    <div class="detail-section">
+                                        <div class="detail-title">📈 数据驱动迭代</div>
+                                        <div class="detail-content">
+                                            通过 A/B 测试发现：带分数进步曲线的用户留存率提升 40%，因此加入"成长飞轮"功能——可视化展示从"结巴达人"到"演讲高手"的六维能力雷达图。
+                                        </div>
+                                    </div>
+                                    <div class="tech-stack">
+                                        <span class="tech-item">Whisper API</span>
+                                        <span class="tech-item">MediaPipe</span>
+                                        <span class="tech-item">Claude API</span>
+                                        <span class="tech-item">WebRTC</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-illustration left">
+                            <img src="illustration-2.jpg" alt="宫崎骏风格插画">
+                        </div>
+                        <span class="timeline-date">2023 - 2024</span>
+                        <h3 class="timeline-title">上海香香树</h3>
+                        <p class="timeline-role">AIGC 产品负责人</p>
+                        <p class="timeline-description">
+                            负责 B 端客户 AIGC 解决方案的落地与交付。
+                        </p>
+                        <div style="margin-top: 20px; padding: 20px; background: rgba(123, 158, 176, 0.1); border-radius: 15px;">
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: var(--primary-color);">🏆 服务客户</strong>
+                                <p style="margin-top: 8px; color: var(--text-secondary);">娇韵诗、一汽大众等知名品牌</p>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: var(--primary-color);">⚙️ 技术栈</strong>
+                                <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;">
+                                    <span class="tech-item">Gemini (文案)</span>
+                                    <span class="tech-item">MiniMax (语音)</span>
+                                    <span class="tech-item">HeyGen (视频)</span>
+                                </div>
+                            </div>
+                            <div>
+                                <strong style="color: var(--primary-color);">📈 核心成果</strong>
+                                <p style="margin-top: 8px; color: var(--text-secondary);">
+                                    建立 AIGC 内容生产 SOP，实现<strong style="color: var(--accent-color);">180% 提效</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-illustration right">
+                            <img src="illustration-3.jpg" alt="宫崎骏风格插画">
+                        </div>
+                        <span class="timeline-date">2022 - 至今</span>
+                        <h3 class="timeline-title">独立摄影师</h3>
+                        <p class="timeline-role">富士人像摄影 / 商业拍摄</p>
+                        <p class="timeline-description">
+                            通过运营个人摄影账号接单，并与海外网红合作拓展海外业务。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photography Section -->
+    <section class="section photography-section" id="photography">
+        <div class="container">
+            <h2 class="section-title">光影暗房</h2>
+            <div class="darkroom-entrance" onclick="alert('📷 摄影作品集即将上线！\n\n敬请期待富士人像系列的温暖光影...')">
+                <span class="darkroom-icon">🎞️</span>
+                <h3 class="darkroom-title">Light & Shadow Darkroom</h3>
+                <p class="darkroom-desc">
+                    在这里，我用富士相机的胶片模拟色彩，<br>
+                    捕捉日常里那些柔软而有力的瞬间。<br>
+                    每一张照片，都是写给世界的情书。
+                </p>
+                <div class="darkroom-hint">✨ 点击进入光影世界</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Douyin Section -->
+    <section class="section" id="douyin">
+        <div class="container">
+            <h2 class="section-title">抖音创作</h2>
+            <div class="douyin-grid">
+                <div class="douyin-card" data-link="https://v.douyin.com/2p-idUYfLtc/">
+                    <div class="douyin-thumbnail" style="background-image: url('douyin-1.jpg');">
+                        <div class="play-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                    </div>
+                    <div class="douyin-info">
+                        <div class="douyin-title">通过出口转内销的hook推广atypica</div>
+                        <div class="douyin-stats">
+                            <div class="stat-item">
+                                <div class="stat-icon">❤️</div>
+                                <div class="stat-value">1488</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">👁️</div>
+                                <div class="stat-value">5.7万</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">⭐</div>
+                                <div class="stat-value">1844</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="douyin-card" data-link="https://v.douyin.com/pQfaaGOY-sI/">
+                    <div class="douyin-thumbnail" style="background-image: url('douyin-2.jpg');">
+                        <div class="play-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                    </div>
+                    <div class="douyin-info">
+                        <div class="douyin-title">通过编销售逆袭故事推广pitchlab</div>
+                        <div class="douyin-stats">
+                            <div class="stat-item">
+                                <div class="stat-icon">❤️</div>
+                                <div class="stat-value">822</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">👁️</div>
+                                <div class="stat-value">5.1万</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">⭐</div>
+                                <div class="stat-value">583</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="douyin-card" data-link="https://v.douyin.com/eyX8foeqh8Q/">
+                    <div class="douyin-thumbnail" style="background-image: url('douyin-3.jpg');">
+                        <div class="play-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                    </div>
+                    <div class="douyin-info">
+                        <div class="douyin-title">通过与GPT对比推广pitchlab</div>
+                        <div class="douyin-stats">
+                            <div class="stat-item">
+                                <div class="stat-icon">❤️</div>
+                                <div class="stat-value">492</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">👁️</div>
+                                <div class="stat-value">2.4万</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">⭐</div>
+                                <div class="stat-value">661</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="douyin-card" data-link="https://v.douyin.com/Ul-eExFPfsM/">
+                    <div class="douyin-thumbnail" style="background-image: url('douyin-4.jpg');">
+                        <div class="play-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                    </div>
+                    <div class="douyin-info">
+                        <div class="douyin-title">通过面试逆袭的故事推广pitchlab</div>
+                        <div class="douyin-stats">
+                            <div class="stat-item">
+                                <div class="stat-icon">❤️</div>
+                                <div class="stat-value">273</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">👁️</div>
+                                <div class="stat-value">1.1万</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">⭐</div>
+                                <div class="stat-value">269</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Made with <span class="heart">❤️</span> by 大耳朵图图</p>
+        <p style="opacity: 0.7; font-size: 0.85rem;">© 2024 凃新焱 | 用 AI 和摄影，让世界更温暖</p>
+    </footer>
+
+    <script>
+        // ========== Canvas 笔触拖尾特效 ==========
+        const canvas = document.getElementById('brush-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        let mouse = { x: null, y: null };
+        let lastMouse = { x: null, y: null };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // 鼠标移动时添加粒子
+        document.addEventListener('mousemove', (e) => {
+            lastMouse.x = mouse.x;
+            lastMouse.y = mouse.y;
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+
+            // 计算移动速度
+            const speed = lastMouse.x && lastMouse.y ?
+                Math.sqrt(Math.pow(mouse.x - lastMouse.x, 2) + Math.pow(mouse.y - lastMouse.y, 2)) :
+                0;
+
+            // 根据速度添加不同数量的粒子
+            if (speed > 2) {
+                const particleCount = Math.min(Math.floor(speed / 5), 3);
+                for (let i = 0; i < particleCount; i++) {
+                    addParticle();
+                }
+            }
+        });
+
+        function addParticle() {
+            const size = Math.random() * 15 + 8;
+            const colors = ['#7B9EB0', '#E8A87C', '#C38D9E', '#A8B8C8'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+
+            particles.push({
+                x: mouse.x + (Math.random() - 0.5) * 20,
+                y: mouse.y + (Math.random() - 0.5) * 20,
+                size: size,
+                color: color,
+                opacity: 0.6,
+                decay: Math.random() * 0.008 + 0.005
+            });
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((particle, index) => {
+                particle.opacity -= particle.decay;
+                particle.size *= 0.99;
+
+                if (particle.opacity <= 0) {
+                    particles.splice(index, 1);
+                    return;
+                }
+
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                ctx.fillStyle = particle.color + Math.floor(particle.opacity * 255).toString(16).padStart(2, '0');
+                ctx.fill();
+            });
+
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+
+        // ========== Q 弹果冻反馈 ==========
+        function addJellyEffect(element) {
+            element.classList.remove('jelly-click');
+            void element.offsetWidth; // 触发重排
+            element.classList.add('jelly-click');
+        }
+
+        // 为所有可点击元素添加果冻效果
+        document.querySelectorAll('.social-btn, .project-card, .darkroom-entrance, .douyin-card, .tag').forEach(element => {
+            element.addEventListener('click', () => {
+                addJellyEffect(element);
+            });
+        });
+
+        // ========== 项目卡片展开/收起 ==========
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const isActive = card.classList.contains('active');
+                addJellyEffect(card);
+
+                // 收起所有其他卡片
+                document.querySelectorAll('.project-card').forEach(c => {
+                    c.classList.remove('active');
+                });
+
+                // 如果点击的卡片之前不是激活状态，则激活它
+                if (!isActive) {
+                    card.classList.add('active');
+                }
+            });
+        });
+
+        // ========== 滚动动画 ==========
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-item, .section-title').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+
+        // ========== 社交按钮点击 ==========
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const platform = btn.getAttribute('title');
+                if (platform === '微信') {
+                    e.preventDefault();
+                    // 这里可以改成显示微信二维码
+                    alert('💬 微信号：zzn666txy\n\n请搜索添加好友');
+                }
+            });
+        });
+
+        // ========== 抖音卡片点击 ==========
+        document.querySelectorAll('.douyin-card').forEach(card => {
+            card.addEventListener('click', () => {
+                addJellyEffect(card);
+                const link = card.getAttribute('data-link');
+                if (link) {
+                    window.open(link, '_blank');
+                }
+            });
+        });
+
+        // ========== 平滑滚动到锚点 ==========
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
