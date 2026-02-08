@@ -640,15 +640,16 @@
 
         /* 胶片入口 */
         .film-entrance {
-            max-width: 700px;
+            width: 100%;
+            max-width: 100%;
             margin: 0 auto;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             position: relative;
             display: block;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         .film-image {
@@ -659,12 +660,12 @@
         }
 
         .film-entrance:hover {
-            transform: scale(1.03);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            transform: scale(1.01);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
         }
 
         .film-entrance:hover .film-image {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
         /* Douyin Section */
@@ -879,7 +880,9 @@
             }
 
             .film-entrance {
-                max-width: 90%;
+                width: 100%;
+                max-width: 100%;
+                border-radius: 10px;
             }
 
             .photo-series-card {
