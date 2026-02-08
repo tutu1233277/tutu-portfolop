@@ -210,7 +210,7 @@
             filter: drop-shadow(-2px -2px 3px rgba(0, 0, 0, 0.15));
         }
 
-        /* 技能图谱 */
+        /* 技能图谱 - 小雏菊 */
         .skills-mindmap {
             display: flex;
             justify-content: center;
@@ -221,50 +221,53 @@
 
         .mindmap-svg {
             width: 100%;
-            max-width: 500px;
+            max-width: 450px;
             height: auto;
         }
 
-        .mindmap-center {
-            fill: var(--accent-color);
-            filter: drop-shadow(0 4px 12px rgba(195, 141, 158, 0.4));
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .mindmap-center-text {
-            fill: white;
-            font-size: 28px;
-            font-weight: bold;
-            font-family: 'ZCOOL XiaoWei', serif;
-            text-anchor: middle;
-            dominant-baseline: middle;
-        }
-
-        .mindmap-circle {
-            fill: var(--primary-color);
-            filter: drop-shadow(0 2px 8px rgba(123, 158, 176, 0.3));
+        .daisy-petal {
+            fill: #FFFACD;
+            stroke: #F5DEB3;
+            stroke-width: 2;
+            filter: drop-shadow(0 2px 8px rgba(245, 222, 179, 0.4));
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
-        .mindmap-circle:hover {
-            fill: var(--secondary-color);
-            transform: scale(1.1);
+        .daisy-petal:hover {
+            fill: #FFE4B5;
+            filter: drop-shadow(0 4px 12px rgba(245, 222, 179, 0.6));
         }
 
-        .mindmap-circle-text {
-            fill: white;
-            font-size: 14px;
+        .petal-text {
+            fill: #8B7355;
+            font-size: 16px;
             font-family: 'ZCOOL KuaiLe', cursive;
             text-anchor: middle;
             dominant-baseline: middle;
             pointer-events: none;
         }
 
-        .mindmap-line {
-            stroke: var(--primary-color);
-            stroke-width: 2;
-            opacity: 0.4;
+        .daisy-center {
+            fill: #DEB887;
+            filter: drop-shadow(0 2px 6px rgba(222, 184, 135, 0.5));
+        }
+
+        .daisy-center-text {
+            fill: white;
+            font-size: 24px;
+            font-weight: bold;
+            font-family: 'ZCOOL XiaoWei', serif;
+            text-anchor: middle;
+            dominant-baseline: middle;
+        }
+
+        .daisy-stem {
+            stroke: #90EE90;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            opacity: 0.6;
         }
 
         .social-buttons {
@@ -1116,35 +1119,36 @@
                 <span class="tag">05后 · 27届毕业</span>
             </div>
 
-            <!-- 技能图谱 -->
+            <!-- 技能图谱 - 小雏菊 -->
             <div class="skills-mindmap">
-                <svg class="mindmap-svg" viewBox="0 0 500 400">
-                    <!-- 连接线 -->
-                    <line class="mindmap-line" x1="250" y1="200" x2="150" y2="100"/>
-                    <line class="mindmap-line" x1="250" y1="200" x2="350" y2="100"/>
-                    <line class="mindmap-line" x1="250" y1="200" x2="100" y2="200"/>
-                    <line class="mindmap-line" x1="250" y1="200" x2="400" y2="200"/>
-                    <line class="mindmap-line" x1="250" y1="200" x2="250" y2="320"/>
+                <svg class="mindmap-svg" viewBox="0 0 450 420">
+                    <!-- 茎 -->
+                    <path class="daisy-stem" d="M 225 200 Q 225 300 200 350" stroke-width="4"/>
 
-                    <!-- 5个小圆圈 -->
-                    <circle class="mindmap-circle" cx="150" cy="100" r="40"/>
-                    <text class="mindmap-circle-text" x="150" y="100">设计</text>
+                    <!-- 5个花瓣 - 使用椭圆旋转 -->
+                    <!-- 花瓣1：设计 (顶部) -->
+                    <ellipse class="daisy-petal" cx="225" cy="200" rx="35" ry="70" transform="rotate(0, 225, 200)"/>
+                    <text class="petal-text" x="225" y="150">设计</text>
 
-                    <circle class="mindmap-circle" cx="350" cy="100" r="40"/>
-                    <text class="mindmap-circle-text" x="350" y="100">技术</text>
+                    <!-- 花瓣2：技术 (右上) -->
+                    <ellipse class="daisy-petal" cx="225" cy="200" rx="35" ry="70" transform="rotate(72, 225, 200)"/>
+                    <text class="petal-text" x="290" y="180">技术</text>
 
-                    <circle class="mindmap-circle" cx="100" cy="200" r="40"/>
-                    <text class="mindmap-circle-text" x="100" y="200">营销</text>
+                    <!-- 花瓣3：营销 (右下) -->
+                    <ellipse class="daisy-petal" cx="225" cy="200" rx="35" ry="70" transform="rotate(144, 225, 200)"/>
+                    <text class="petal-text" x="270" y="260">营销</text>
 
-                    <circle class="mindmap-circle" cx="400" cy="200" r="40"/>
-                    <text class="mindmap-circle-text" x="400" y="200">运营</text>
+                    <!-- 花瓣4：运营 (左下) -->
+                    <ellipse class="daisy-petal" cx="225" cy="200" rx="35" ry="70" transform="rotate(216, 225, 200)"/>
+                    <text class="petal-text" x="180" y="260">运营</text>
 
-                    <circle class="mindmap-circle" cx="250" cy="320" r="40"/>
-                    <text class="mindmap-circle-text" x="250" y="320">说故事</text>
+                    <!-- 花瓣5：说故事 (左上) -->
+                    <ellipse class="daisy-petal" cx="225" cy="200" rx="35" ry="70" transform="rotate(288, 225, 200)"/>
+                    <text class="petal-text" x="160" y="180">说故事</text>
 
-                    <!-- 中心大圆 -->
-                    <circle class="mindmap-center" cx="250" cy="200" r="50"/>
-                    <text class="mindmap-center-text" x="250" y="200">我</text>
+                    <!-- 花心 -->
+                    <circle class="daisy-center" cx="225" cy="200" r="40"/>
+                    <text class="daisy-center-text" x="225" y="200">我</text>
                 </svg>
             </div>
 
