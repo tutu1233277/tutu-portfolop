@@ -187,86 +187,49 @@
             align-items: center;
         }
 
-        /* 技能图谱 - 小雏菊 */
-        .skills-mindmap {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        /* 照片网格展示 */
+        .photos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            max-width: 900px;
             margin: 30px auto 35px;
-            position: relative;
+            padding: 0 20px;
         }
 
-        .mindmap-svg {
+        .grid-photo {
             width: 100%;
-            max-width: 450px;
             height: auto;
-        }
-
-        .daisy-petal {
-            fill: #FFFACD;
-            stroke: #F5DEB3;
-            stroke-width: 2;
-            filter: drop-shadow(0 2px 8px rgba(245, 222, 179, 0.4));
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
-        .daisy-petal:hover {
-            fill: #FFE4B5;
-            filter: drop-shadow(0 4px 12px rgba(245, 222, 179, 0.6));
-        }
-
-        .petal-text {
-            fill: #8B7355;
-            font-size: 16px;
-            font-family: 'ZCOOL KuaiLe', cursive;
-            text-anchor: middle;
-            dominant-baseline: middle;
-            pointer-events: none;
-        }
-
-        .daisy-center {
-            fill: #DEB887;
-            filter: drop-shadow(0 2px 6px rgba(222, 184, 135, 0.5));
-        }
-
-        .daisy-center-text {
-            fill: white;
-            font-size: 24px;
-            font-weight: bold;
-            font-family: 'ZCOOL XiaoWei', serif;
-            text-anchor: middle;
-            dominant-baseline: middle;
-        }
-
-        .daisy-stem {
-            stroke: #90EE90;
-            stroke-width: 3;
-            fill: none;
-            stroke-linecap: round;
-            opacity: 0.6;
-        }
-
-        /* 兴趣爱好照片 */
-        .hobby-photo-container {
-            max-width: 600px;
-            margin: 30px auto 35px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .hobby-photo {
-            max-width: 100%;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        .grid-photo:first-child {
             transform: rotate(-1deg);
-            transition: all 0.3s ease;
         }
 
-        .hobby-photo:hover {
-            transform: rotate(0deg) scale(1.02);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+        .grid-photo:last-child {
+            transform: rotate(1deg);
+        }
+
+        .grid-photo:hover {
+            transform: rotate(0deg) scale(1.03);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .photos-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                max-width: 400px;
+            }
+
+            .grid-photo {
+                transform: rotate(0deg) !important;
+            }
         }
 
         .social-buttons {
@@ -1118,42 +1081,10 @@
                 <span class="tag">05后 · 27届毕业</span>
             </div>
 
-            <!-- 技能图谱 - 小雏菊 -->
-            <div class="skills-mindmap">
-                <svg class="mindmap-svg" viewBox="0 0 450 420">
-                    <!-- 茎 -->
-                    <path class="daisy-stem" d="M 225 200 Q 225 300 200 350" stroke-width="4"/>
-
-                    <!-- 5个花瓣 - 使用椭圆旋转 -->
-                    <!-- 花瓣1：设计 (顶部) -->
-                    <ellipse class="daisy-petal" cx="225" cy="200" rx="35" ry="70" transform="rotate(0, 225, 200)"/>
-                    <text class="petal-text" x="225" y="150">设计</text>
-
-                    <!-- 花瓣2：技术 (右上) -->
-                    <ellipse class="daisy-petal" cx="225" cy="200" rx="35" ry="70" transform="rotate(72, 225, 200)"/>
-                    <text class="petal-text" x="290" y="180">技术</text>
-
-                    <!-- 花瓣3：营销 (右下) -->
-                    <ellipse class="daisy-petal" cx="225" cy="200" rx="35" ry="70" transform="rotate(144, 225, 200)"/>
-                    <text class="petal-text" x="270" y="260">营销</text>
-
-                    <!-- 花瓣4：运营 (左下) -->
-                    <ellipse class="daisy-petal" cx="225" cy="200" rx="35" ry="70" transform="rotate(216, 225, 200)"/>
-                    <text class="petal-text" x="180" y="260">运营</text>
-
-                    <!-- 花瓣5：说故事 (左上) -->
-                    <ellipse class="daisy-petal" cx="225" cy="200" rx="35" ry="70" transform="rotate(288, 225, 200)"/>
-                    <text class="petal-text" x="160" y="180">说故事</text>
-
-                    <!-- 花心 -->
-                    <circle class="daisy-center" cx="225" cy="200" r="40"/>
-                    <text class="daisy-center-text" x="225" y="200">我</text>
-                </svg>
-            </div>
-
-            <!-- 兴趣爱好照片 -->
-            <div class="hobby-photo-container">
-                <img src="hobby-photo.png" alt="兴趣爱好" class="hobby-photo">
+            <!-- 照片展示区 -->
+            <div class="photos-grid">
+                <img src="skills-photo.png" alt="技能" class="grid-photo">
+                <img src="hobby-photo.png" alt="兴趣爱好" class="grid-photo">
             </div>
             <div class="social-buttons">
                 <a href="https://x.com/tutu971844?s=21" class="social-btn" title="Twitter" target="_blank">𝕏</a>
