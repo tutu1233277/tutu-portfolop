@@ -463,6 +463,23 @@
             line-height: 1.6;
         }
 
+        .project-cta {
+            margin-top: 15px;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .project-cta {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(123, 158, 176, 0.3);
+        }
+
         .project-details {
             max-height: 0;
             overflow: hidden;
@@ -1027,12 +1044,14 @@
                                 <div class="project-name">atypica</div>
                                 <span class="project-tag">多智能体系统</span>
                                 <p class="project-summary">商业研究 Agent 协作平台</p>
+                                <div class="project-cta">点击查看 →</div>
                             </a>
                             <a href="https://pitchlab.pro" class="project-card" target="_blank" rel="noopener noreferrer">
                                 <div class="project-icon">🎤</div>
                                 <div class="project-name">PitchLab</div>
                                 <span class="project-tag">AI 训练产品</span>
                                 <p class="project-summary">表达能力提升与演讲训练平台</p>
+                                <div class="project-cta">点击查看 →</div>
                             </a>
                         </div>
                     </div>
