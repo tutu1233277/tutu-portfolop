@@ -247,6 +247,28 @@
             opacity: 0.6;
         }
 
+        /* 兴趣爱好照片 */
+        .hobby-photo-container {
+            max-width: 600px;
+            margin: 30px auto 35px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hobby-photo {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            transform: rotate(-1deg);
+            transition: all 0.3s ease;
+        }
+
+        .hobby-photo:hover {
+            transform: rotate(0deg) scale(1.02);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+        }
+
         .social-buttons {
             display: flex;
             gap: 20px;
@@ -1129,11 +1151,10 @@
                 </svg>
             </div>
 
-            <!-- 兴趣爱好便利贴 -->
-            <p class="intro-text">
-                兴趣爱好广泛：📷 摄影 ✈️ 旅游 🤿 潜水 🎿 滑雪 🧗 攀岩 🎨 拼豆<br>
-                也爱看偶像剧 📺、打游戏 🎮
-            </p>
+            <!-- 兴趣爱好照片 -->
+            <div class="hobby-photo-container">
+                <img src="hobby-photo.png" alt="兴趣爱好" class="hobby-photo">
+            </div>
             <div class="social-buttons">
                 <a href="https://x.com/tutu971844?s=21" class="social-btn" title="Twitter" target="_blank">𝕏</a>
                 <a href="#" class="social-btn" title="微信">💬</a>
