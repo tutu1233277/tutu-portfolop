@@ -396,7 +396,7 @@
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             text-decoration: none;
             display: flex;
             flex-direction: column;
@@ -470,21 +470,28 @@
             margin-bottom: auto;
         }
 
-        .project-cta {
-            margin-top: 8px;
-            padding: 6px 14px;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            color: white;
-            border-radius: 18px;
-            font-size: 0.8rem;
-            text-align: center;
-            font-weight: 500;
+        .project-link-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 32px;
+            height: 32px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--primary-color);
             transition: all 0.3s ease;
-            font-family: 'ZCOOL XiaoWei', serif;
+            backdrop-filter: blur(10px);
         }
 
-        .project-card:hover .project-cta {
-            transform: translateX(3px);
+        .project-card:hover .project-link-icon {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.1) rotate(45deg);
             box-shadow: 0 4px 12px rgba(123, 158, 176, 0.3);
         }
 
@@ -1049,18 +1056,18 @@
                         <p class="timeline-role">AI 产品经理实习生</p>
                         <div class="project-cards">
                             <a href="https://atypica.ai" class="project-card" target="_blank" rel="noopener noreferrer">
+                                <div class="project-link-icon">↗</div>
                                 <div class="project-icon"><img src="atypica-logo.png" alt="atypica logo"></div>
                                 <div class="project-name">atypica</div>
                                 <span class="project-tag">多智能体系统</span>
                                 <p class="project-summary">商业研究 Agent 协作平台</p>
-                                <div class="project-cta">点击查看 →</div>
                             </a>
                             <a href="https://pitchlab.pro" class="project-card" target="_blank" rel="noopener noreferrer">
+                                <div class="project-link-icon">↗</div>
                                 <div class="project-icon">🎤</div>
                                 <div class="project-name">PitchLab</div>
                                 <span class="project-tag">AI 训练产品</span>
                                 <p class="project-summary">表达能力提升与演讲训练平台</p>
-                                <div class="project-cta">点击查看 →</div>
                             </a>
                         </div>
                     </div>
