@@ -395,6 +395,8 @@
             transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             position: relative;
             overflow: hidden;
+            text-decoration: none;
+            display: block;
         }
 
         .project-card::before {
@@ -890,74 +892,18 @@
                             负责企业级 AIGC 产品的规划与落地，构建多智能体协作系统。
                         </p>
                         <div class="project-cards">
-                            <div class="project-card" data-project="atypica">
+                            <a href="https://atypica.ai" class="project-card" target="_blank" rel="noopener noreferrer">
                                 <div class="project-icon"><img src="atypica-logo.png" alt="atypica logo"></div>
                                 <div class="project-name">atypica</div>
                                 <span class="project-tag">多智能体系统</span>
                                 <p class="project-summary">商业研究 Agent 协作平台</p>
-                                <div class="project-details">
-                                    <div class="detail-section">
-                                        <div class="detail-title">🎯 产品定位</div>
-                                        <div class="detail-content">
-                                            打造首个面向商业研究的 Multi-Agent System，通过智能体分工协作，将传统的市场调研效率提升 300%。产品定位为"企业级商业洞察引擎"，服务于需要深度行业分析的战略决策场景。
-                                        </div>
-                                    </div>
-                                    <div class="detail-section">
-                                        <div class="detail-title">🤖 Agent 架构设计</div>
-                                        <div class="detail-content">
-                                            设计了 4 层 Agent 协作体系：① 研究策划 Agent（定义研究框架）→ ② 信息采集 Agent（多源数据抓取与清洗）→ ③ 分析推理 Agent（模式识别与洞察提取）→ ④ 报告生成 Agent（结构化输出）。通过 Chain-of-Thought 提示工程优化，确保每个 Agent 的输出质量可验证、可追溯。
-                                        </div>
-                                    </div>
-                                    <div class="detail-section">
-                                        <div class="detail-title">📊 核心成果</div>
-                                        <div class="detail-content">
-                                            • 上线 3 个月服务 15+ 家企业客户<br>
-                                            • 单份商业报告平均产出时间从 2 周缩短至 2 小时<br>
-                                            • Agent 准确率达到 87%，超行业平均水平 22%
-                                        </div>
-                                    </div>
-                                    <div class="tech-stack">
-                                        <span class="tech-item">LangChain</span>
-                                        <span class="tech-item">GPT-4o</span>
-                                        <span class="tech-item">Vector DB</span>
-                                        <span class="tech-item">RAG</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="project-card" data-project="pitchlab">
+                            </a>
+                            <a href="https://pitchlab.pro" class="project-card" target="_blank" rel="noopener noreferrer">
                                 <div class="project-icon">🎤</div>
                                 <div class="project-name">PitchLab</div>
                                 <span class="project-tag">AI 训练产品</span>
                                 <p class="project-summary">表达能力提升与演讲训练平台</p>
-                                <div class="project-details">
-                                    <div class="detail-section">
-                                        <div class="detail-title">💡 产品洞察</div>
-                                        <div class="detail-content">
-                                            发现 65% 的职场人因"表达焦虑"错失机会。传统演讲培训存在三大痛点：① 昂贵（动辄数万）② 缺乏即时反馈（需等待教练点评）③ 难以量化进步。PitchLab 旨在通过 AI 让每个人都能获得"私人演讲教练"。
-                                        </div>
-                                    </div>
-                                    <div class="detail-section">
-                                        <div class="detail-title">🎬 核心功能矩阵</div>
-                                        <div class="detail-content">
-                                            <strong>实时反馈系统</strong>：通过语音识别 + 视觉分析，实时检测语速（建议 180-200 字/分钟）、停顿次数、肢体语言丰富度。<br><br>
-                                            <strong>智能改写引擎</strong>：用户输入粗稿，AI 基于金字塔原理优化结构，生成 3 个版本（正式/活泼/精简）供选择。<br><br>
-                                            <strong>情景模拟训练</strong>：内置 50+ 场景（投资路演/汇报述职/客户提案），AI 扮演听众并提出刁钻问题，锻炼临场反应。
-                                        </div>
-                                    </div>
-                                    <div class="detail-section">
-                                        <div class="detail-title">📈 数据驱动迭代</div>
-                                        <div class="detail-content">
-                                            通过 A/B 测试发现：带分数进步曲线的用户留存率提升 40%，因此加入"成长飞轮"功能——可视化展示从"结巴达人"到"演讲高手"的六维能力雷达图。
-                                        </div>
-                                    </div>
-                                    <div class="tech-stack">
-                                        <span class="tech-item">Whisper API</span>
-                                        <span class="tech-item">MediaPipe</span>
-                                        <span class="tech-item">Claude API</span>
-                                        <span class="tech-item">WebRTC</span>
-                                    </div>
-                                </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1233,21 +1179,10 @@
             });
         });
 
-        // ========== 项目卡片展开/收起 ==========
+        // ========== 项目卡片点击效果 ==========
         document.querySelectorAll('.project-card').forEach(card => {
             card.addEventListener('click', () => {
-                const isActive = card.classList.contains('active');
                 addJellyEffect(card);
-
-                // 收起所有其他卡片
-                document.querySelectorAll('.project-card').forEach(c => {
-                    c.classList.remove('active');
-                });
-
-                // 如果点击的卡片之前不是激活状态，则激活它
-                if (!isActive) {
-                    card.classList.add('active');
-                }
             });
         });
 
