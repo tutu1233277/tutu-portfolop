@@ -642,100 +642,29 @@
         .film-entrance {
             max-width: 700px;
             margin: 0 auto;
-            background: linear-gradient(135deg, #f4e4bc 0%, #e8d4a8 50%, #f4e4bc 100%);
-            border: 12px solid #1a1a1a;
-            border-radius: 5px;
-            padding: 50px 40px;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             position: relative;
-            overflow: hidden;
-            box-shadow:
-                0 10px 30px rgba(0, 0, 0, 0.3),
-                inset 0 0 60px rgba(139, 115, 85, 0.2);
-            text-decoration: none;
             display: block;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
 
-        /* 胶片齿孔效果 */
-        .film-entrance::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image:
-                repeating-linear-gradient(
-                    90deg,
-                    transparent,
-                    transparent 15px,
-                    rgba(0, 0, 0, 0.15) 15px,
-                    rgba(0, 0, 0, 0.15) 18px
-                );
-            pointer-events: none;
-        }
-
-        .film-entrance::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
-            pointer-events: none;
+        .film-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.4s ease;
         }
 
         .film-entrance:hover {
-            transform: scale(1.03) rotate(0.5deg);
-            box-shadow:
-                0 15px 40px rgba(0, 0, 0, 0.4),
-                inset 0 0 80px rgba(139, 115, 85, 0.3);
+            transform: scale(1.03);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
         }
 
-        .film-icon {
-            font-size: 5rem;
-            margin-bottom: 25px;
-            display: block;
-            filter: sepia(0.8);
-            transition: all 0.3s ease;
-        }
-
-        .film-entrance:hover .film-icon {
-            filter: sepia(0);
-            transform: scale(1.1);
-        }
-
-        .film-title {
-            font-family: 'ZCOOL XiaoWei', serif;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #3d2e1f;
-            position: relative;
-            z-index: 1;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
-        }
-
-        .film-subtitle {
-            color: #5d4e37;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            position: relative;
-            z-index: 1;
-        }
-
-        .film-hint {
-            margin-top: 30px;
-            padding: 10px 25px;
-            background: rgba(0, 0, 0, 0.1);
-            border: 2px dashed #5d4e37;
-            border-radius: 25px;
-            display: inline-block;
-            font-size: 0.9rem;
-            color: #3d2e1f;
-            position: relative;
-            z-index: 1;
+        .film-entrance:hover .film-image {
+            transform: scale(1.05);
         }
 
         /* Douyin Section */
@@ -950,15 +879,7 @@
             }
 
             .film-entrance {
-                padding: 40px 25px;
-            }
-
-            .film-icon {
-                font-size: 3.5rem !important;
-            }
-
-            .film-title {
-                font-size: 1.8rem !important;
+                max-width: 90%;
             }
 
             .photo-series-card {
@@ -1177,14 +1098,7 @@
 
             <!-- 胶片入口 - 链接到摄影页面 -->
             <a href="photography.html" class="film-entrance">
-                <span class="film-icon">🎬</span>
-                <h3 class="film-title">暗房之门</h3>
-                <p class="film-subtitle">
-                    在这里，我用富士相机的胶片模拟色彩<br>
-                    捕捉日常里那些柔软而有力的瞬间<br>
-                    每一张照片，都是写给世界的情书
-                </p>
-                <div class="film-hint">✨ 点击进入暗房</div>
+                <img src="film-entrance.jpg" alt="神秘胶卷门" class="film-image">
             </a>
         </div>
     </section>
