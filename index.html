@@ -176,7 +176,6 @@
             background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
             border: none;
             border-radius: 2px;
-            font-family: 'ZCOOL KuaiLe', cursive;
             box-shadow:
                 0 2px 4px rgba(0, 0, 0, 0.1),
                 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -209,6 +208,63 @@
             border-width: 0 0 25px 25px;
             border-color: transparent transparent #ffe082 transparent;
             filter: drop-shadow(-2px -2px 3px rgba(0, 0, 0, 0.15));
+        }
+
+        /* 技能图谱 */
+        .skills-mindmap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px auto 35px;
+            position: relative;
+        }
+
+        .mindmap-svg {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+        }
+
+        .mindmap-center {
+            fill: var(--accent-color);
+            filter: drop-shadow(0 4px 12px rgba(195, 141, 158, 0.4));
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .mindmap-center-text {
+            fill: white;
+            font-size: 28px;
+            font-weight: bold;
+            font-family: 'ZCOOL XiaoWei', serif;
+            text-anchor: middle;
+            dominant-baseline: middle;
+        }
+
+        .mindmap-circle {
+            fill: var(--primary-color);
+            filter: drop-shadow(0 2px 8px rgba(123, 158, 176, 0.3));
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .mindmap-circle:hover {
+            fill: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .mindmap-circle-text {
+            fill: white;
+            font-size: 14px;
+            font-family: 'ZCOOL KuaiLe', cursive;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            pointer-events: none;
+        }
+
+        .mindmap-line {
+            stroke: var(--primary-color);
+            stroke-width: 2;
+            opacity: 0.4;
         }
 
         .social-buttons {
@@ -1059,8 +1115,41 @@
                 <span class="tag">🎨 AIGC 创作者</span>
                 <span class="tag">05后 · 27届毕业</span>
             </div>
+
+            <!-- 技能图谱 -->
+            <div class="skills-mindmap">
+                <svg class="mindmap-svg" viewBox="0 0 500 400">
+                    <!-- 连接线 -->
+                    <line class="mindmap-line" x1="250" y1="200" x2="150" y2="100"/>
+                    <line class="mindmap-line" x1="250" y1="200" x2="350" y2="100"/>
+                    <line class="mindmap-line" x1="250" y1="200" x2="100" y2="200"/>
+                    <line class="mindmap-line" x1="250" y1="200" x2="400" y2="200"/>
+                    <line class="mindmap-line" x1="250" y1="200" x2="250" y2="320"/>
+
+                    <!-- 5个小圆圈 -->
+                    <circle class="mindmap-circle" cx="150" cy="100" r="40"/>
+                    <text class="mindmap-circle-text" x="150" y="100">设计</text>
+
+                    <circle class="mindmap-circle" cx="350" cy="100" r="40"/>
+                    <text class="mindmap-circle-text" x="350" y="100">技术</text>
+
+                    <circle class="mindmap-circle" cx="100" cy="200" r="40"/>
+                    <text class="mindmap-circle-text" x="100" y="200">营销</text>
+
+                    <circle class="mindmap-circle" cx="400" cy="200" r="40"/>
+                    <text class="mindmap-circle-text" x="400" y="200">运营</text>
+
+                    <circle class="mindmap-circle" cx="250" cy="320" r="40"/>
+                    <text class="mindmap-circle-text" x="250" y="320">说故事</text>
+
+                    <!-- 中心大圆 -->
+                    <circle class="mindmap-center" cx="250" cy="200" r="50"/>
+                    <text class="mindmap-center-text" x="250" y="200">我</text>
+                </svg>
+            </div>
+
+            <!-- 兴趣爱好便利贴 -->
             <p class="intro-text">
-                一个懂设计、懂技术、懂营销、懂运营、会说故事的 AI 产品经理<br>
                 兴趣爱好广泛：📷 摄影 ✈️ 旅游 🤿 潜水 🎿 滑雪 🧗 攀岩 🎨 拼豆<br>
                 也爱看偶像剧 📺、打游戏 🎮
             </p>
