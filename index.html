@@ -189,16 +189,18 @@
 
         /* 照片网格展示 */
         .photos-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            max-width: 900px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
             margin: 30px auto 35px;
-            padding: 0 20px;
+            padding: 0 40px;
+            gap: 60px;
         }
 
         .grid-photo {
-            width: 100%;
+            width: 45%;
+            max-width: 500px;
             height: auto;
             border-radius: 15px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
@@ -222,12 +224,14 @@
         /* 移动端适配 */
         @media (max-width: 768px) {
             .photos-grid {
-                grid-template-columns: 1fr;
+                flex-direction: column;
                 gap: 20px;
+                padding: 0 20px;
                 max-width: 400px;
             }
 
             .grid-photo {
+                width: 100%;
                 transform: rotate(0deg) !important;
             }
         }
